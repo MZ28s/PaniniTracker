@@ -339,14 +339,18 @@ async function sbFetch(method, path, body) {
     },
     body: body ? JSON.stringify(body) : undefined
   });
-  if (!res.ok) throw new Error(await res.text());
+  if (!res.ok) {
+    const errText = await res.text();
+    console.error(`Supabase ${method} ${path} → ${res.status}`, errText);
+    throw new Error(`${res.status}: ${errText}`);
+  }
   const text = await res.text();
   return text ? JSON.parse(text) : null;
 }
 
 async function loadFromDB() {
   try {
-    const rows = await sbFetch("GET", `/rest/v1/panini_progress?user_id=eq.${USER_ID}&select=found_cards`);
+    const rows = await sbFetch("GET", `/rest/v1/panini_progress?user_id=eq.${USER_ID}&select=found_cards&order=updated_at.desc&limit=1`);
     if (rows && rows.length > 0) {
       found = rows[0].found_cards || {};
     }
@@ -363,14 +367,14 @@ async function saveToDB() {
   try { localStorage.setItem("panini_wc2026", JSON.stringify(found)); } catch(_) {}
   setSyncStatus("⏳ Sauvegarde...", "#e8b923");
   try {
-    await sbFetch("POST", "/rest/v1/panini_progress", {
+    await sbFetch("POST", "/rest/v1/panini_progress?on_conflict=user_id", {
       user_id: USER_ID,
       found_cards: found,
       updated_at: new Date().toISOString()
     });
     setSyncStatus("✅ Synchronisé", "#4ade80");
   } catch(e) {
-    setSyncStatus("⚠️ Erreur sync — sauvegardé localement", "#f87171");
+    setSyncStatus("⚠️ Erreur sync — " + e.message, "#f87171");
   }
 }
 
