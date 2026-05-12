@@ -8,60 +8,24 @@
 <title>Panini WC 2026</title>
 <style>
   :root {
-    --bg: #0a0a0f;
-    --bg2: #13131f;
-    --bg3: #1e1e2e;
-    --gold: #e8b923;
-    --green: #22c55e;
-    --red: #f87171;
-    --text: #e8e8f0;
-    --muted: #666;
-    --border: rgba(255,255,255,0.07);
+    --bg: #0a0a0f; --bg3: #1e1e2e; --gold: #e8b923;
+    --green: #22c55e; --red: #f87171; --text: #e8e8f0; --muted: #666; --border: rgba(255,255,255,0.07);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-
-  /* HEADER */
-  #header {
-    background: linear-gradient(160deg, #1a1a2e 0%, #0f3460 100%);
-    border-bottom: 2px solid var(--gold);
-    padding: 14px 14px 12px;
-    position: sticky; top: 0; z-index: 50;
-  }
-  #header h1 { text-align: center; font-size: 18px; font-weight: 800; letter-spacing: -0.3px; margin-bottom: 2px; }
+  #header { background: linear-gradient(160deg, #1a1a2e 0%, #0f3460 100%); border-bottom: 2px solid var(--gold); padding: 14px 14px 12px; position: sticky; top: 0; z-index: 50; }
+  #header h1 { text-align: center; font-size: 18px; font-weight: 800; margin-bottom: 2px; }
   #header .sub { text-align: center; font-size: 10px; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 10px; }
-
-  /* PROGRESS */
-  .prog-bar-wrap { background: rgba(255,255,255,0.07); border-radius: 10px; padding: 8px 12px; margin-bottom: 10px; }
+  .prog-bar-wrap { background: rgba(255,255,255,0.07); border-radius: 10px; padding: 8px 12px; margin-bottom: 8px; }
   .prog-stats { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; }
   .prog-track { background: rgba(255,255,255,0.1); border-radius: 999px; height: 6px; overflow: hidden; }
   .prog-fill { background: linear-gradient(90deg, #4ade80, #16a34a); height: 100%; border-radius: 999px; transition: width 0.3s ease; }
-
-  /* BUTTONS */
-  .btn-row { display: flex; gap: 8px; margin-bottom: 10px; }
-  .btn { flex: 1; border: none; border-radius: 9px; padding: 10px 0; font-size: 13px; font-weight: 700; cursor: pointer; transition: opacity 0.15s; }
-  .btn:active { opacity: 0.7; }
-  .btn-gold { background: var(--gold); color: #000; }
-  .btn-ghost { background: rgba(255,255,255,0.09); color: var(--text); }
-  .btn-green { background: var(--green); color: #000; }
-  .btn-disabled { background: rgba(255,255,255,0.05); color: var(--muted); cursor: default; }
-
-  /* SEARCH */
-  #search { width: 100%; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); border-radius: 9px; padding: 9px 12px 9px 34px; color: var(--text); font-size: 14px; outline: none; position: relative; }
+  #sync-status { text-align: center; font-size: 11px; padding: 3px 0 6px; }
   .search-wrap { position: relative; }
   .search-wrap::before { content: "🔍"; position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 14px; pointer-events: none; }
-
-  /* LIST */
+  #search { width: 100%; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); border-radius: 9px; padding: 9px 12px 9px 34px; color: var(--text); font-size: 14px; outline: none; }
   #list { padding: 10px 10px 80px; }
-
-  /* TEAM */
-  .team-header {
-    width: 100%; display: flex; align-items: center; justify-content: space-between;
-    background: var(--bg3); border: 1px solid var(--border);
-    border-radius: 12px; padding: 11px 13px;
-    color: var(--text); cursor: pointer; text-align: left;
-    margin-bottom: 0; transition: background 0.2s;
-  }
+  .team-header { width: 100%; display: flex; align-items: center; justify-content: space-between; background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 11px 13px; color: var(--text); cursor: pointer; text-align: left; transition: background 0.2s; }
   .team-header.done { background: linear-gradient(135deg, #052e16, #14532d); border-color: var(--green); }
   .team-header.open { border-radius: 12px 12px 0 0; }
   .team-left { display: flex; align-items: center; gap: 9px; }
@@ -73,21 +37,9 @@
   .badge { background: var(--gold); color: #000; border-radius: 999px; font-size: 11px; font-weight: 700; padding: 2px 8px; }
   .badge.zero { background: var(--green); }
   .chevron { color: var(--muted); font-size: 11px; }
-
-  /* CARDS */
-  .cards-list {
-    background: rgba(255,255,255,0.02);
-    border: 1px solid var(--border); border-top: none;
-    border-radius: 0 0 12px 12px; overflow: hidden;
-    display: none; margin-bottom: 7px;
-  }
+  .cards-list { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-top: none; border-radius: 0 0 12px 12px; overflow: hidden; display: none; margin-bottom: 7px; }
   .cards-list.open { display: block; }
-  .card-row {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 10px 13px;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-    transition: background 0.15s;
-  }
+  .card-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 13px; border-bottom: 1px solid rgba(255,255,255,0.04); transition: background 0.15s; }
   .card-row:last-child { border-bottom: none; }
   .card-row.found { background: rgba(34,197,94,0.05); }
   .card-info { flex: 1; min-width: 0; }
@@ -95,70 +47,26 @@
   .card-id.found { color: var(--green); }
   .card-player { font-size: 13px; color: #ccc; }
   .card-player.found { color: var(--muted); text-decoration: line-through; }
-  .check-btn {
-    width: 42px; height: 42px; border-radius: 9px; border: none; cursor: pointer;
-    font-size: 17px; flex-shrink: 0; margin-left: 8px;
-    background: rgba(255,255,255,0.07); color: var(--muted);
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.15s;
-  }
+  .check-btn { width: 42px; height: 42px; border-radius: 9px; border: none; cursor: pointer; font-size: 17px; flex-shrink: 0; margin-left: 8px; background: rgba(255,255,255,0.07); color: var(--muted); display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
   .check-btn.found { background: linear-gradient(135deg, #22c55e, #16a34a); color: #fff; }
   .check-btn:active { transform: scale(0.9); }
   .team-wrap { margin-bottom: 7px; }
-  .team-wrap .team-header { margin-bottom: 0; }
-
-  /* MODAL */
-  .modal-overlay {
-    position: fixed; inset: 0; background: rgba(0,0,0,0.88);
-    z-index: 200; display: flex; align-items: center; justify-content: center; padding: 16px;
-    display: none;
-  }
-  .modal-overlay.open { display: flex; }
-  .modal-box {
-    background: #1a1a2e; border-radius: 18px; padding: 22px;
-    width: 100%; max-width: 380px;
-    border: 1px solid rgba(255,255,255,0.1);
-  }
-  .modal-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
-  .modal-sub { font-size: 13px; color: #999; margin-bottom: 14px; line-height: 1.5; }
-  .code-box {
-    background: #0d0d1a; border-radius: 10px; padding: 12px 14px;
-    font-family: 'Courier New', monospace; font-size: 11px;
-    word-break: break-all; color: var(--gold);
-    margin-bottom: 14px; border: 1px solid rgba(232,185,35,0.3);
-    line-height: 1.6; max-height: 120px; overflow-y: auto;
-    user-select: text; -webkit-user-select: text;
-  }
-  textarea.load-input {
-    width: 100%; height: 90px;
-    background: #0d0d1a; border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 10px; padding: 10px 12px;
-    color: var(--text); font-size: 12px;
-    font-family: 'Courier New', monospace;
-    resize: none; outline: none; margin-bottom: 14px;
-  }
-  textarea.load-input.error { border-color: var(--red); }
-  .error-msg { color: var(--red); font-size: 12px; margin-bottom: 12px; }
-
-  /* TOAST */
-  #toast {
-    position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-80px);
-    background: var(--green); color: #000;
-    padding: 10px 22px; border-radius: 999px;
-    font-weight: 700; font-size: 14px; z-index: 999;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
-    white-space: nowrap; pointer-events: none;
-  }
+  #toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-80px); background: var(--green); color: #000; padding: 10px 22px; border-radius: 999px; font-weight: 700; font-size: 14px; z-index: 999; box-shadow: 0 4px 20px rgba(0,0,0,0.5); transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1); white-space: nowrap; pointer-events: none; }
   #toast.show { transform: translateX(-50%) translateY(0); }
-
-  /* AUTO-SAVE indicator */
-  #autosave { text-align: center; font-size: 10px; color: var(--muted); padding: 4px 0 2px; letter-spacing: 0.5px; }
+  #loading { position: fixed; inset: 0; background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; z-index: 300; }
+  #loading .spinner { width: 36px; height: 36px; border: 3px solid rgba(255,255,255,0.1); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.8s linear infinite; }
+  #loading p { color: var(--muted); font-size: 14px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
 
-<div id="header">
+<div id="loading">
+  <div class="spinner"></div>
+  <p>Chargement de ta progression...</p>
+</div>
+
+<div id="header" style="display:none">
   <div class="sub">FIFA World Cup 2026</div>
   <h1>⚽ Panini Tracker</h1>
   <div class="prog-bar-wrap">
@@ -169,432 +77,314 @@
     </div>
     <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
   </div>
-  <div id="autosave">💾 Sauvegarde automatique activée</div>
-  <div class="btn-row" style="margin-top:8px">
-    <button class="btn btn-ghost" onclick="openLoad()">📂 Charger un code</button>
-    <button class="btn btn-ghost" onclick="exportCode()">📤 Exporter code</button>
-  </div>
-  <div class="search-wrap">
+  <div id="sync-status" style="color:#666">⏳ Synchronisation...</div>
+  <div class="search-wrap" style="margin-top:6px">
     <input id="search" type="search" placeholder="Rechercher un joueur, pays..." oninput="filterList(this.value)">
   </div>
 </div>
 
 <div id="list"></div>
-
-<!-- MODAL EXPORT -->
-<div class="modal-overlay" id="modal-export">
-  <div class="modal-box" onclick="event.stopPropagation()">
-    <div class="modal-title">📤 Code de secours</div>
-    <div class="modal-sub">Ta progression est déjà sauvegardée automatiquement. Ce code te permet de la transférer sur un autre appareil ou navigateur.</div>
-    <div class="code-box" id="export-code"></div>
-    <div class="btn-row">
-      <button class="btn btn-gold" onclick="copyCode()">📋 Copier</button>
-      <button class="btn btn-ghost" onclick="closeModal('modal-export')">Fermer</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL IMPORT -->
-<div class="modal-overlay" id="modal-load">
-  <div class="modal-box" onclick="event.stopPropagation()">
-    <div class="modal-title">📂 Charger un code</div>
-    <div class="modal-sub">Colle un code exporté pour récupérer une progression.</div>
-    <textarea class="load-input" id="load-input" placeholder="Colle ton code ici..."></textarea>
-    <div class="error-msg" id="load-error" style="display:none">❌ Code invalide.</div>
-    <div class="btn-row">
-      <button class="btn btn-green" onclick="importCode()">✓ Charger</button>
-      <button class="btn btn-ghost" onclick="closeModal('modal-load')">Annuler</button>
-    </div>
-  </div>
-</div>
-
-<div id="toast">✓ Sauvegardé !</div>
+<div id="toast"></div>
 
 <script>
+const SUPABASE_URL = "https://vkhammhuignhwzbmxhwc.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZraGFtbWh1aWduaHd6Ym14aHdjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3MzUxODgsImV4cCI6MjA4OTMxMTE4OH0.Ie6X7sFn8meFFGoGzx5nm9Hoo_Ad7_EIZ4DjmZ7ISFM";
+const USER_ID = "matteo";
+
 const TEAMS = [
   {team:"FWC",flag:"🏆",name:"Général",cards:[
-    {id:"FWC2",label:"FWC 2",player:"Trophée"},
-    {id:"FWC3",label:"FWC 3",player:"Official Mascots"},
-    {id:"FWC7",label:"FWC 7",player:"Mexico Host Emblem"},
-    {id:"FWC8",label:"FWC 8",player:"USA Host Emblem"},
-    {id:"FWC10",label:"FWC 10",player:"Histoire WC 1950"},
-    {id:"FWC18",label:"FWC 18",player:"Histoire WC 2014"},
+    {id:"FWC2",label:"FWC 2",player:"Trophée"},{id:"FWC3",label:"FWC 3",player:"Official Mascots"},
+    {id:"FWC7",label:"FWC 7",player:"Mexico Host Emblem"},{id:"FWC8",label:"FWC 8",player:"USA Host Emblem"},
+    {id:"FWC10",label:"FWC 10",player:"Histoire WC 1950"},{id:"FWC18",label:"FWC 18",player:"Histoire WC 2014"},
   ]},
   {team:"MEX",flag:"🇲🇽",name:"Mexique",cards:[
-    {id:"MEX10",label:"MEX 10",player:"Edson Alvarez"},
-    {id:"MEX12",label:"MEX 12",player:"Marbel Ruiz"},
-    {id:"MEX14",label:"MEX 14",player:"Erick Sanchez"},
-    {id:"MEX15",label:"MEX 15",player:"Hirving Lozano"},
+    {id:"MEX10",label:"MEX 10",player:"Edson Alvarez"},{id:"MEX12",label:"MEX 12",player:"Marbel Ruiz"},
+    {id:"MEX14",label:"MEX 14",player:"Erick Sanchez"},{id:"MEX15",label:"MEX 15",player:"Hirving Lozano"},
     {id:"MEX17",label:"MEX 17",player:"Raul Jimenez"},
   ]},
   {team:"RSA",flag:"🇿🇦",name:"Afrique du Sud",cards:[
-    {id:"RSA3",label:"RSA 3",player:"Sipho Chaine"},
-    {id:"RSA13",label:"RSA 13",player:"Carte pays"},
-    {id:"RSA17",label:"RSA 17",player:"Lyle Foster"},
-    {id:"RSA18",label:"RSA 18",player:"Kraam Ravners"},
+    {id:"RSA3",label:"RSA 3",player:"Sipho Chaine"},{id:"RSA13",label:"RSA 13",player:"Carte pays"},
+    {id:"RSA17",label:"RSA 17",player:"Lyle Foster"},{id:"RSA18",label:"RSA 18",player:"Kraam Ravners"},
   ]},
-  {team:"KOR",flag:"🇰🇷",name:"Corée du Sud",cards:[
-    {id:"KOR17",label:"KOR 17",player:"Gisung Cho"},
-  ]},
+  {team:"KOR",flag:"🇰🇷",name:"Corée du Sud",cards:[{id:"KOR17",label:"KOR 17",player:"Gisung Cho"}]},
   {team:"CZE",flag:"🇨🇿",name:"Tchéquie",cards:[
-    {id:"CZE10",label:"CZE 10",player:"Lukas Provod"},
-    {id:"CZE15",label:"CZE 15",player:"Matej Vvdra"},
+    {id:"CZE10",label:"CZE 10",player:"Lukas Provod"},{id:"CZE15",label:"CZE 15",player:"Matej Vvdra"},
     {id:"CZE19",label:"CZE 19",player:"Adam Hlozek"},
   ]},
   {team:"CAN",flag:"🇨🇦",name:"Canada",cards:[
-    {id:"CAN5",label:"CAN 5",player:"Samuel Adekugbe"},
-    {id:"CAN6",label:"CAN 6",player:"Richie Laryea"},
-    {id:"CAN16",label:"CAN 16",player:"Niko Sigua"},
-    {id:"CAN19",label:"CAN 19",player:"Cyle Larin"},
+    {id:"CAN5",label:"CAN 5",player:"Samuel Adekugbe"},{id:"CAN6",label:"CAN 6",player:"Richie Laryea"},
+    {id:"CAN16",label:"CAN 16",player:"Niko Sigua"},{id:"CAN19",label:"CAN 19",player:"Cyle Larin"},
   ]},
   {team:"BIH",flag:"🇧🇦",name:"Bosnie-Herzégovine",cards:[
-    {id:"BIH1",label:"BIH 1",player:"Gardien"},
-    {id:"BIH4",label:"BIH 4",player:"Sead Kolasinac"},
-    {id:"BIH6",label:"BIH 6",player:"Nihad Mujakic"},
-    {id:"BIH10",label:"BIH 10",player:"Armin Gigovic"},
-    {id:"BIH14",label:"BIH 14",player:"Dzenis Burnic"},
-    {id:"BIH15",label:"BIH 15",player:"Esmir Bajraktarevic"},
+    {id:"BIH1",label:"BIH 1",player:"Gardien"},{id:"BIH4",label:"BIH 4",player:"Sead Kolasinac"},
+    {id:"BIH6",label:"BIH 6",player:"Nihad Mujakic"},{id:"BIH10",label:"BIH 10",player:"Armin Gigovic"},
+    {id:"BIH14",label:"BIH 14",player:"Dzenis Burnic"},{id:"BIH15",label:"BIH 15",player:"Esmir Bajraktarevic"},
   ]},
   {team:"QAT",flag:"🇶🇦",name:"Qatar",cards:[
-    {id:"QAT9",label:"QAT 9",player:"Mohammed Mannai"},
-    {id:"QAT11",label:"QAT 11",player:"Assim Madibo"},
-    {id:"QAT13",label:"QAT 13",player:"Carte pays"},
-    {id:"QAT16",label:"QAT 16",player:"Hassan Al-Haydos"},
+    {id:"QAT9",label:"QAT 9",player:"Mohammed Mannai"},{id:"QAT11",label:"QAT 11",player:"Assim Madibo"},
+    {id:"QAT13",label:"QAT 13",player:"Carte pays"},{id:"QAT16",label:"QAT 16",player:"Hassan Al-Haydos"},
     {id:"QAT19",label:"QAT 19",player:"Ahmed Al-Gamehi"},
   ]},
   {team:"SUI",flag:"🇨🇭",name:"Suisse",cards:[
-    {id:"SUI8",label:"SUI 8",player:"Silvan Widmer"},
-    {id:"SUI9",label:"SUI 9",player:"Granit Xhaka"},
-    {id:"SUI12",label:"SUI 12",player:"Fabian Rieder"},
-    {id:"SUI14",label:"SUI 14",player:"Ardon Jashari"},
+    {id:"SUI8",label:"SUI 8",player:"Silvan Widmer"},{id:"SUI9",label:"SUI 9",player:"Granit Xhaka"},
+    {id:"SUI12",label:"SUI 12",player:"Fabian Rieder"},{id:"SUI14",label:"SUI 14",player:"Ardon Jashari"},
   ]},
   {team:"BRA",flag:"🇧🇷",name:"Brésil",cards:[
-    {id:"BRA2",label:"BRA 2",player:"Alisson"},
-    {id:"BRA3",label:"BRA 3",player:"Bento"},
-    {id:"BRA11",label:"BRA 11",player:"Bruno Guimaraes"},
-    {id:"BRA15",label:"BRA 15",player:"Rodrygo"},
+    {id:"BRA2",label:"BRA 2",player:"Alisson"},{id:"BRA3",label:"BRA 3",player:"Bento"},
+    {id:"BRA11",label:"BRA 11",player:"Bruno Guimaraes"},{id:"BRA15",label:"BRA 15",player:"Rodrygo"},
     {id:"BRA18",label:"BRA 18",player:"Gabriel Martinelli"},
   ]},
   {team:"MAR",flag:"🇲🇦",name:"Maroc",cards:[
-    {id:"MAR9",label:"MAR 9",player:"Adam Masina"},
-    {id:"MAR10",label:"MAR 10",player:"Sofian Amrabat"},
-    {id:"MAR14",label:"MAR 14",player:"Bilal El Khannouss"},
-    {id:"MAR16",label:"MAR 16",player:"Youssef En-Nesyri"},
+    {id:"MAR9",label:"MAR 9",player:"Adam Masina"},{id:"MAR10",label:"MAR 10",player:"Sofian Amrabat"},
+    {id:"MAR14",label:"MAR 14",player:"Bilal El Khannouss"},{id:"MAR16",label:"MAR 16",player:"Youssef En-Nesyri"},
     {id:"MAR18",label:"MAR 18",player:"Soufiane Rahimi"},
   ]},
   {team:"HAI",flag:"🇭🇹",name:"Haïti",cards:[
-    {id:"HAI1",label:"HAI 1",player:"Gardien"},
-    {id:"HAI5",label:"HAI 5",player:"Jean-Kevin Duverne"},
-    {id:"HAI7",label:"HAI 7",player:"Duke Lacroix"},
-    {id:"HAI9",label:"HAI 9",player:"Hannes Delcroix"},
-    {id:"HAI11",label:"HAI 11",player:"Danley Jean Jacques"},
-    {id:"HAI12",label:"HAI 12",player:"Jean-Michel Bellegarde"},
-    {id:"HAI14",label:"HAI 14",player:"Christopher Attys"},
-    {id:"HAI17",label:"HAI 17",player:"Ruben Providence"},
+    {id:"HAI1",label:"HAI 1",player:"Gardien"},{id:"HAI5",label:"HAI 5",player:"Jean-Kevin Duverne"},
+    {id:"HAI7",label:"HAI 7",player:"Duke Lacroix"},{id:"HAI9",label:"HAI 9",player:"Hannes Delcroix"},
+    {id:"HAI11",label:"HAI 11",player:"Danley Jean Jacques"},{id:"HAI12",label:"HAI 12",player:"Jean-Michel Bellegarde"},
+    {id:"HAI14",label:"HAI 14",player:"Christopher Attys"},{id:"HAI17",label:"HAI 17",player:"Ruben Providence"},
   ]},
   {team:"SCO",flag:"🏴󠁧󠁢󠁳󠁣󠁴󠁿",name:"Écosse",cards:[
-    {id:"SCO8",label:"SCO 8",player:"John Souttar"},
-    {id:"SCO12",label:"SCO 12",player:"Billy Gilmour"},
-    {id:"SCO13",label:"SCO 13",player:"Carte pays"},
-    {id:"SCO19",label:"SCO 19",player:"Che Adams"},
+    {id:"SCO8",label:"SCO 8",player:"John Souttar"},{id:"SCO12",label:"SCO 12",player:"Billy Gilmour"},
+    {id:"SCO13",label:"SCO 13",player:"Carte pays"},{id:"SCO19",label:"SCO 19",player:"Che Adams"},
   ]},
   {team:"USA",flag:"🇺🇸",name:"USA",cards:[
-    {id:"USA7",label:"USA 7",player:"Antoine Robinson"},
-    {id:"USA15",label:"USA 15",player:"Malik Tillman"},
+    {id:"USA7",label:"USA 7",player:"Antoine Robinson"},{id:"USA15",label:"USA 15",player:"Malik Tillman"},
     {id:"USA19",label:"USA 19",player:"Haji Wright"},
   ]},
   {team:"PAR",flag:"🇵🇾",name:"Paraguay",cards:[
-    {id:"PAR4",label:"PAR 4",player:"Gustavo Gomez"},
-    {id:"PAR5",label:"PAR 5",player:"Fabian Balbuena"},
-    {id:"PAR7",label:"PAR 7",player:"Omar Alderete"},
-    {id:"PAR12",label:"PAR 12",player:"Andres Cubas"},
+    {id:"PAR4",label:"PAR 4",player:"Gustavo Gomez"},{id:"PAR5",label:"PAR 5",player:"Fabian Balbuena"},
+    {id:"PAR7",label:"PAR 7",player:"Omar Alderete"},{id:"PAR12",label:"PAR 12",player:"Andres Cubas"},
     {id:"PAR14",label:"PAR 14",player:"Matias Galarza Fonda"},
   ]},
   {team:"AUS",flag:"🇦🇺",name:"Australie",cards:[
-    {id:"AUS1",label:"AUS 1",player:"Gardien"},
-    {id:"AUS8",label:"AUS 8",player:"Cameron Burgess"},
-    {id:"AUS12",label:"AUS 12",player:"Riley McGee"},
-    {id:"AUS13",label:"AUS 13",player:"Carte pays"},
+    {id:"AUS1",label:"AUS 1",player:"Gardien"},{id:"AUS8",label:"AUS 8",player:"Cameron Burgess"},
+    {id:"AUS12",label:"AUS 12",player:"Riley McGee"},{id:"AUS13",label:"AUS 13",player:"Carte pays"},
     {id:"AUS19",label:"AUS 19",player:"Nestory Irankunda"},
   ]},
   {team:"TUR",flag:"🇹🇷",name:"Türkiye",cards:[
-    {id:"TUR7",label:"TUR 7",player:"Merih Demiral"},
-    {id:"TUR9",label:"TUR 9",player:"Kaan Ayhan"},
-    {id:"TUR13",label:"TUR 13",player:"Carte pays"},
-    {id:"TUR15",label:"TUR 15",player:"Ibrahim Cani Kahveci"},
-    {id:"TUR16",label:"TUR 16",player:"Yunus Akgun"},
-    {id:"TUR19",label:"TUR 19",player:"Kerem Arturoğlu"},
+    {id:"TUR7",label:"TUR 7",player:"Merih Demiral"},{id:"TUR9",label:"TUR 9",player:"Kaan Ayhan"},
+    {id:"TUR13",label:"TUR 13",player:"Carte pays"},{id:"TUR15",label:"TUR 15",player:"Ibrahim Cani Kahveci"},
+    {id:"TUR16",label:"TUR 16",player:"Yunus Akgun"},{id:"TUR19",label:"TUR 19",player:"Kerem Arturoğlu"},
   ]},
   {team:"GER",flag:"🇩🇪",name:"Allemagne",cards:[
-    {id:"GER1",label:"GER 1",player:"Gardien"},
-    {id:"GER2",label:"GER 2",player:"Marc-Andre Ter Stegen"},
-    {id:"GER3",label:"GER 3",player:"Jonathan Tah"},
-    {id:"GER5",label:"GER 5",player:"Nico Schlotterbeck"},
-    {id:"GER7",label:"GER 7",player:"Waldemar Anton"},
-    {id:"GER8",label:"GER 8",player:"Role Baku"},
-    {id:"GER12",label:"GER 12",player:"Felix Nmecha"},
-    {id:"GER17",label:"GER 17",player:"Kai Havertz"},
+    {id:"GER1",label:"GER 1",player:"Gardien"},{id:"GER2",label:"GER 2",player:"Marc-Andre Ter Stegen"},
+    {id:"GER3",label:"GER 3",player:"Jonathan Tah"},{id:"GER5",label:"GER 5",player:"Nico Schlotterbeck"},
+    {id:"GER7",label:"GER 7",player:"Waldemar Anton"},{id:"GER8",label:"GER 8",player:"Role Baku"},
+    {id:"GER12",label:"GER 12",player:"Felix Nmecha"},{id:"GER17",label:"GER 17",player:"Kai Havertz"},
   ]},
   {team:"CUW",flag:"🇨🇼",name:"Curaçao",cards:[
-    {id:"CUW15",label:"CUW 15",player:"Kenji Gorre"},
-    {id:"CUW20",label:"CUW 20",player:"Sonce Hansen"},
+    {id:"CUW15",label:"CUW 15",player:"Kenji Gorre"},{id:"CUW20",label:"CUW 20",player:"Sonce Hansen"},
   ]},
   {team:"CIV",flag:"🇨🇮",name:"Côte d'Ivoire",cards:[
-    {id:"CIV9",label:"CIV 9",player:"Ousmane Diomande"},
-    {id:"CIV12",label:"CIV 12",player:"Ibrahim Sangare"},
+    {id:"CIV9",label:"CIV 9",player:"Ousmane Diomande"},{id:"CIV12",label:"CIV 12",player:"Ibrahim Sangare"},
     {id:"CIV14",label:"CIV 14",player:"Jean-Philippe Gbamin"},
   ]},
   {team:"ECU",flag:"🇪🇨",name:"Équateur",cards:[
-    {id:"ECU4",label:"ECU 4",player:"Piero Hincapie"},
-    {id:"ECU5",label:"ECU 5",player:"Pervis Estupinan"},
-    {id:"ECU7",label:"ECU 7",player:"Angelo Preciado"},
-    {id:"ECU9",label:"ECU 9",player:"Moises Cancedo"},
-    {id:"ECU14",label:"ECU 14",player:"John Veboah"},
-    {id:"ECU15",label:"ECU 15",player:"Leonardo Campana"},
-    {id:"ECU19",label:"ECU 19",player:"Kevin Rodriguez"},
-    {id:"ECU20",label:"ECU 20",player:"Enner Valencia"},
+    {id:"ECU4",label:"ECU 4",player:"Piero Hincapie"},{id:"ECU5",label:"ECU 5",player:"Pervis Estupinan"},
+    {id:"ECU7",label:"ECU 7",player:"Angelo Preciado"},{id:"ECU9",label:"ECU 9",player:"Moises Cancedo"},
+    {id:"ECU14",label:"ECU 14",player:"John Veboah"},{id:"ECU15",label:"ECU 15",player:"Leonardo Campana"},
+    {id:"ECU19",label:"ECU 19",player:"Kevin Rodriguez"},{id:"ECU20",label:"ECU 20",player:"Enner Valencia"},
   ]},
   {team:"NED",flag:"🇳🇱",name:"Pays-Bas",cards:[
-    {id:"NED1",label:"NED 1",player:"Gardien"},
-    {id:"NED2",label:"NED 2",player:"Bart Verbruggen"},
-    {id:"NED5",label:"NED 5",player:"Jurrien Timber"},
-    {id:"NED18",label:"NED 18",player:"Donyell Malen"},
+    {id:"NED1",label:"NED 1",player:"Gardien"},{id:"NED2",label:"NED 2",player:"Bart Verbruggen"},
+    {id:"NED5",label:"NED 5",player:"Jurrien Timber"},{id:"NED18",label:"NED 18",player:"Donyell Malen"},
   ]},
   {team:"JPN",flag:"🇯🇵",name:"Japon",cards:[
-    {id:"JPN2",label:"JPN 2",player:"Zon Suzuki"},
-    {id:"JPN3",label:"JPN 3",player:"Henry Heroki Mochizuki"},
-    {id:"JPN5",label:"JPN 5",player:"Junnosuke Suzuki"},
-    {id:"JPN9",label:"JPN 9",player:"Yuki Soma"},
-    {id:"JPN13",label:"JPN 13",player:"Carte pays"},
-    {id:"JPN15",label:"JPN 15",player:"Keito Nakamura"},
-    {id:"JPN19",label:"JPN 19",player:"Koki Ogawa"},
-    {id:"JPN20",label:"JPN 20",player:"Ayase Ueda"},
+    {id:"JPN2",label:"JPN 2",player:"Zon Suzuki"},{id:"JPN3",label:"JPN 3",player:"Henry Heroki Mochizuki"},
+    {id:"JPN5",label:"JPN 5",player:"Junnosuke Suzuki"},{id:"JPN9",label:"JPN 9",player:"Yuki Soma"},
+    {id:"JPN13",label:"JPN 13",player:"Carte pays"},{id:"JPN15",label:"JPN 15",player:"Keito Nakamura"},
+    {id:"JPN19",label:"JPN 19",player:"Koki Ogawa"},{id:"JPN20",label:"JPN 20",player:"Ayase Ueda"},
   ]},
   {team:"SWE",flag:"🇸🇪",name:"Suède",cards:[
-    {id:"SWE2",label:"SWE 2",player:"Viktor Johansson"},
-    {id:"SWE5",label:"SWE 5",player:"Emil Holm"},
-    {id:"SWE8",label:"SWE 8",player:"Lucas Bergvall"},
-    {id:"SWE19",label:"SWE 19",player:"Alexander Isak"},
+    {id:"SWE2",label:"SWE 2",player:"Viktor Johansson"},{id:"SWE5",label:"SWE 5",player:"Emil Holm"},
+    {id:"SWE8",label:"SWE 8",player:"Lucas Bergvall"},{id:"SWE19",label:"SWE 19",player:"Alexander Isak"},
   ]},
   {team:"TUN",flag:"🇹🇳",name:"Tunisie",cards:[
-    {id:"TUN4",label:"TUN 4",player:"Yan Valery"},
-    {id:"TUN14",label:"TUN 14",player:"Hannibal Mejbri"},
-    {id:"TUN16",label:"TUN 16",player:"Elias Saad"},
-    {id:"TUN17",label:"TUN 17",player:"Hozem Mastourl"},
+    {id:"TUN4",label:"TUN 4",player:"Yan Valery"},{id:"TUN14",label:"TUN 14",player:"Hannibal Mejbri"},
+    {id:"TUN16",label:"TUN 16",player:"Elias Saad"},{id:"TUN17",label:"TUN 17",player:"Hozem Mastourl"},
   ]},
   {team:"BEL",flag:"🇧🇪",name:"Belgique",cards:[
-    {id:"BEL4",label:"BEL 4",player:"Timothy Castagne"},
-    {id:"BEL15",label:"BEL 15",player:"Kevin De Bruyne"},
-    {id:"BEL17",label:"BEL 17",player:"Charles De Ketelaere"},
-    {id:"BEL18",label:"BEL 18",player:"Leandro Trossard"},
+    {id:"BEL4",label:"BEL 4",player:"Timothy Castagne"},{id:"BEL15",label:"BEL 15",player:"Kevin De Bruyne"},
+    {id:"BEL17",label:"BEL 17",player:"Charles De Ketelaere"},{id:"BEL18",label:"BEL 18",player:"Leandro Trossard"},
   ]},
   {team:"EGY",flag:"🇪🇬",name:"Égypte",cards:[
-    {id:"EGY1",label:"EGY 1",player:"Gardien"},
-    {id:"EGY3",label:"EGY 3",player:"Mohamed Hany"},
-    {id:"EGY4",label:"EGY 4",player:"Mohamed Hamdy"},
-    {id:"EGY9",label:"EGY 9",player:"Ahmed Fatouh"},
-    {id:"EGY12",label:"EGY 12",player:"Hamdy Fathy"},
-    {id:"EGY14",label:"EGY 14",player:"Mohanad Lasheen"},
-    {id:"EGY17",label:"EGY 17",player:"Mohamed Salah"},
-    {id:"EGY18",label:"EGY 18",player:"Mostafa Mohamed"},
+    {id:"EGY1",label:"EGY 1",player:"Gardien"},{id:"EGY3",label:"EGY 3",player:"Mohamed Hany"},
+    {id:"EGY4",label:"EGY 4",player:"Mohamed Hamdy"},{id:"EGY9",label:"EGY 9",player:"Ahmed Fatouh"},
+    {id:"EGY12",label:"EGY 12",player:"Hamdy Fathy"},{id:"EGY14",label:"EGY 14",player:"Mohanad Lasheen"},
+    {id:"EGY17",label:"EGY 17",player:"Mohamed Salah"},{id:"EGY18",label:"EGY 18",player:"Mostafa Mohamed"},
   ]},
   {team:"IRN",flag:"🇮🇷",name:"Iran",cards:[
-    {id:"IRN6",label:"IRN 6",player:"Shajae Khalilzadeh"},
-    {id:"IRN12",label:"IRN 12",player:"Saman Ghoddos"},
-    {id:"IRN13",label:"IRN 13",player:"Carte pays"},
-    {id:"IRN14",label:"IRN 14",player:"Omid Noorafkan"},
-    {id:"IRN17",label:"IRN 17",player:"Sardar Azmoun"},
-    {id:"IRN18",label:"IRN 18",player:"Mehdi Taremi"},
+    {id:"IRN6",label:"IRN 6",player:"Shajae Khalilzadeh"},{id:"IRN12",label:"IRN 12",player:"Saman Ghoddos"},
+    {id:"IRN13",label:"IRN 13",player:"Carte pays"},{id:"IRN14",label:"IRN 14",player:"Omid Noorafkan"},
+    {id:"IRN17",label:"IRN 17",player:"Sardar Azmoun"},{id:"IRN18",label:"IRN 18",player:"Mehdi Taremi"},
   ]},
   {team:"NZL",flag:"🇳🇿",name:"Nouvelle-Zélande",cards:[
-    {id:"NZL1",label:"NZL 1",player:"Gardien"},
-    {id:"NZL2",label:"NZL 2",player:"Max Crocombe"},
-    {id:"NZL3",label:"NZL 3",player:"Alex Paulsen"},
-    {id:"NZL4",label:"NZL 4",player:"Michael Boxall"},
-    {id:"NZL13",label:"NZL 13",player:"Carte pays"},
-    {id:"NZL15",label:"NZL 15",player:"Marko Stamenic"},
-    {id:"NZL17",label:"NZL 17",player:"Chris Wood"},
-    {id:"NZL20",label:"NZL 20",player:"Kosta Barbarouses"},
+    {id:"NZL1",label:"NZL 1",player:"Gardien"},{id:"NZL2",label:"NZL 2",player:"Max Crocombe"},
+    {id:"NZL3",label:"NZL 3",player:"Alex Paulsen"},{id:"NZL4",label:"NZL 4",player:"Michael Boxall"},
+    {id:"NZL13",label:"NZL 13",player:"Carte pays"},{id:"NZL15",label:"NZL 15",player:"Marko Stamenic"},
+    {id:"NZL17",label:"NZL 17",player:"Chris Wood"},{id:"NZL20",label:"NZL 20",player:"Kosta Barbarouses"},
   ]},
   {team:"ESP",flag:"🇪🇸",name:"Espagne",cards:[
-    {id:"ESP10",label:"ESP 10",player:"Rodri"},
-    {id:"ESP11",label:"ESP 11",player:"Pedri"},
+    {id:"ESP10",label:"ESP 10",player:"Rodri"},{id:"ESP11",label:"ESP 11",player:"Pedri"},
     {id:"ESP18",label:"ESP 18",player:"Ferran Torres"},
   ]},
   {team:"CPV",flag:"🇨🇻",name:"Cabo Verde",cards:[
-    {id:"CPV9",label:"CPV 9",player:"Vannick Semedo"},
-    {id:"CPV10",label:"CPV 10",player:"Kevin Pina"},
-    {id:"CPV15",label:"CPV 15",player:"Garry Rodrigues"},
-    {id:"CPV18",label:"CPV 18",player:"Dalon Livramento"},
-    {id:"CPV19",label:"CPV 19",player:"Willy Semedo"},
-    {id:"CPV20",label:"CPV 20",player:"Bebe"},
+    {id:"CPV9",label:"CPV 9",player:"Vannick Semedo"},{id:"CPV10",label:"CPV 10",player:"Kevin Pina"},
+    {id:"CPV15",label:"CPV 15",player:"Garry Rodrigues"},{id:"CPV18",label:"CPV 18",player:"Dalon Livramento"},
+    {id:"CPV19",label:"CPV 19",player:"Willy Semedo"},{id:"CPV20",label:"CPV 20",player:"Bebe"},
   ]},
   {team:"KSA",flag:"🇸🇦",name:"Arabie Saoudite",cards:[
-    {id:"KSA2",label:"KSA 2",player:"Nawaf Alaqidi"},
-    {id:"KSA5",label:"KSA 5",player:"Nawaf Buwashl"},
-    {id:"KSA7",label:"KSA 7",player:"Moter Alharbi"},
-    {id:"KSA8",label:"KSA 8",player:"Hassan Altambakti"},
-    {id:"KSA9",label:"KSA 9",player:"Misab Aljuwasari"},
-    {id:"KSA10",label:"KSA 10",player:"Ziyad Aljohaini"},
-    {id:"KSA11",label:"KSA 11",player:"Abdullah Alkhaibari"},
-    {id:"KSA13",label:"KSA 13",player:"Carte pays"},
-    {id:"KSA15",label:"KSA 15",player:"Marwani Alsahar"},
-    {id:"KSA18",label:"KSA 18",player:"Feras Albrikan"},
+    {id:"KSA2",label:"KSA 2",player:"Nawaf Alaqidi"},{id:"KSA5",label:"KSA 5",player:"Nawaf Buwashl"},
+    {id:"KSA7",label:"KSA 7",player:"Moter Alharbi"},{id:"KSA8",label:"KSA 8",player:"Hassan Altambakti"},
+    {id:"KSA9",label:"KSA 9",player:"Misab Aljuwasari"},{id:"KSA10",label:"KSA 10",player:"Ziyad Aljohaini"},
+    {id:"KSA11",label:"KSA 11",player:"Abdullah Alkhaibari"},{id:"KSA13",label:"KSA 13",player:"Carte pays"},
+    {id:"KSA15",label:"KSA 15",player:"Marwani Alsahar"},{id:"KSA18",label:"KSA 18",player:"Feras Albrikan"},
   ]},
   {team:"URU",flag:"🇺🇾",name:"Uruguay",cards:[
-    {id:"URU5",label:"URU 5",player:"Jose Maria Gimenez"},
-    {id:"URU7",label:"URU 7",player:"Matias Olvera"},
-    {id:"URU9",label:"URU 9",player:"Maxtton Nandez"},
-    {id:"URU11",label:"URU 11",player:"Giorgian De Arrascaeta"},
-    {id:"URU12",label:"URU 12",player:"Rodrigo Bentancur"},
-    {id:"URU20",label:"URU 20",player:"Facundo Pellistri"},
+    {id:"URU5",label:"URU 5",player:"Jose Maria Gimenez"},{id:"URU7",label:"URU 7",player:"Matias Olvera"},
+    {id:"URU9",label:"URU 9",player:"Maxtton Nandez"},{id:"URU11",label:"URU 11",player:"Giorgian De Arrascaeta"},
+    {id:"URU12",label:"URU 12",player:"Rodrigo Bentancur"},{id:"URU20",label:"URU 20",player:"Facundo Pellistri"},
   ]},
   {team:"FRA",flag:"🇫🇷",name:"France",cards:[
-    {id:"FRA7",label:"FRA 7",player:"Dayot Upamecano"},
-    {id:"FRA9",label:"FRA 9",player:"Aurélien Tchouaméni"},
-    {id:"FRA12",label:"FRA 12",player:"Adrien Rabiot"},
-    {id:"FRA16",label:"FRA 16",player:"Bradley Barcola"},
+    {id:"FRA7",label:"FRA 7",player:"Dayot Upamecano"},{id:"FRA9",label:"FRA 9",player:"Aurélien Tchouaméni"},
+    {id:"FRA12",label:"FRA 12",player:"Adrien Rabiot"},{id:"FRA16",label:"FRA 16",player:"Bradley Barcola"},
     {id:"FRA20",label:"FRA 20",player:"Kylian Mbappé"},
   ]},
   {team:"SEN",flag:"🇸🇳",name:"Sénégal",cards:[
-    {id:"SEN6",label:"SEN 6",player:"Ismail Jakobs"},
-    {id:"SEN18",label:"SEN 18",player:"Iliman Ndiaye"},
+    {id:"SEN6",label:"SEN 6",player:"Ismail Jakobs"},{id:"SEN18",label:"SEN 18",player:"Iliman Ndiaye"},
     {id:"SEN20",label:"SEN 20",player:"Krepin Diatta"},
   ]},
   {team:"IRQ",flag:"🇮🇶",name:"Irak",cards:[
-    {id:"IRQ7",label:"IRQ 7",player:"Zao Tahseen"},
-    {id:"IRQ10",label:"IRQ 10",player:"Amir Al-Ammari"},
-    {id:"IRQ11",label:"IRQ 11",player:"Ibrahim Bayesh"},
-    {id:"IRQ16",label:"IRQ 16",player:"Mario Farji"},
+    {id:"IRQ7",label:"IRQ 7",player:"Zao Tahseen"},{id:"IRQ10",label:"IRQ 10",player:"Amir Al-Ammari"},
+    {id:"IRQ11",label:"IRQ 11",player:"Ibrahim Bayesh"},{id:"IRQ16",label:"IRQ 16",player:"Mario Farji"},
     {id:"IRQ20",label:"IRQ 20",player:"Mohanad Ali"},
   ]},
   {team:"NOR",flag:"🇳🇴",name:"Norvège",cards:[
-    {id:"NOR5",label:"NOR 5",player:"Kristoffer Vassbakk Ajer"},
-    {id:"NOR16",label:"NOR 16",player:"Alexander Sorloth"},
+    {id:"NOR5",label:"NOR 5",player:"Kristoffer Vassbakk Ajer"},{id:"NOR16",label:"NOR 16",player:"Alexander Sorloth"},
   ]},
   {team:"ARG",flag:"🇦🇷",name:"Argentine",cards:[
-    {id:"ARG7",label:"ARG 7",player:"Leonardo Balerdi"},
-    {id:"ARG17",label:"ARG 17",player:"Lionel Messi"},
+    {id:"ARG7",label:"ARG 7",player:"Leonardo Balerdi"},{id:"ARG17",label:"ARG 17",player:"Lionel Messi"},
   ]},
   {team:"ALG",flag:"🇩🇿",name:"Algérie",cards:[
-    {id:"ALG6",label:"ALG 6",player:"Mohamed Amine Tougai"},
-    {id:"ALG14",label:"ALG 14",player:"Fares Chaabi"},
+    {id:"ALG6",label:"ALG 6",player:"Mohamed Amine Tougai"},{id:"ALG14",label:"ALG 14",player:"Fares Chaabi"},
   ]},
   {team:"AUT",flag:"🇦🇹",name:"Autriche",cards:[
-    {id:"AUT2",label:"AUT 2",player:"Alexander Schlager"},
-    {id:"AUT3",label:"AUT 3",player:"Patrick Pentz"},
-    {id:"AUT10",label:"AUT 10",player:"Xaver Schlager"},
-    {id:"AUT13",label:"AUT 13",player:"Carte pays"},
-    {id:"AUT14",label:"AUT 14",player:"Florian Grillitsch"},
-    {id:"AUT15",label:"AUT 15",player:"Nicolas Seiwald"},
+    {id:"AUT2",label:"AUT 2",player:"Alexander Schlager"},{id:"AUT3",label:"AUT 3",player:"Patrick Pentz"},
+    {id:"AUT10",label:"AUT 10",player:"Xaver Schlager"},{id:"AUT13",label:"AUT 13",player:"Carte pays"},
+    {id:"AUT14",label:"AUT 14",player:"Florian Grillitsch"},{id:"AUT15",label:"AUT 15",player:"Nicolas Seiwald"},
   ]},
   {team:"JOR",flag:"🇯🇴",name:"Jordanie",cards:[
-    {id:"JOR3",label:"JOR 3",player:"Ihsan Haddad"},
-    {id:"JOR4",label:"JOR 4",player:"Mohammad Abu Hashish"},
+    {id:"JOR3",label:"JOR 3",player:"Ihsan Haddad"},{id:"JOR4",label:"JOR 4",player:"Mohammad Abu Hashish"},
     {id:"JOR9",label:"JOR 9",player:"Ibrahim Saadeh"},
   ]},
   {team:"POR",flag:"🇵🇹",name:"Portugal",cards:[
-    {id:"POR3",label:"POR 3",player:"Jose Sa"},
-    {id:"POR7",label:"POR 7",player:"Nuno Mendes"},
-    {id:"POR8",label:"POR 8",player:"Goncalo Inacio"},
-    {id:"POR13",label:"POR 13",player:"Carte pays"},
-    {id:"POR14",label:"POR 14",player:"Joao Neves"},
-    {id:"POR16",label:"POR 16",player:"Francisco Trincao"},
-    {id:"POR17",label:"POR 17",player:"Joao Felix"},
-    {id:"POR18",label:"POR 18",player:"Goncalo Ramos"},
+    {id:"POR3",label:"POR 3",player:"Jose Sa"},{id:"POR7",label:"POR 7",player:"Nuno Mendes"},
+    {id:"POR8",label:"POR 8",player:"Goncalo Inacio"},{id:"POR13",label:"POR 13",player:"Carte pays"},
+    {id:"POR14",label:"POR 14",player:"Joao Neves"},{id:"POR16",label:"POR 16",player:"Francisco Trincao"},
+    {id:"POR17",label:"POR 17",player:"Joao Felix"},{id:"POR18",label:"POR 18",player:"Goncalo Ramos"},
     {id:"POR20",label:"POR 20",player:"Rafael Leao"},
   ]},
   {team:"COD",flag:"🇨🇩",name:"Congo DR",cards:[
-    {id:"COD1",label:"COD 1",player:"Gardien"},
-    {id:"COD2",label:"COD 2",player:"Lionel Mpasi"},
-    {id:"COD4",label:"COD 4",player:"Axel Tuanzebe"},
-    {id:"COD9",label:"COD 9",player:"Ngaluwel Mukau"},
-    {id:"COD12",label:"COD 12",player:"Nomi Sadiki"},
-    {id:"COD15",label:"COD 15",player:"Messhack Elia"},
+    {id:"COD1",label:"COD 1",player:"Gardien"},{id:"COD2",label:"COD 2",player:"Lionel Mpasi"},
+    {id:"COD4",label:"COD 4",player:"Axel Tuanzebe"},{id:"COD9",label:"COD 9",player:"Ngaluwel Mukau"},
+    {id:"COD12",label:"COD 12",player:"Nomi Sadiki"},{id:"COD15",label:"COD 15",player:"Messhack Elia"},
     {id:"COD17",label:"COD 17",player:"Brian Gipenga"},
   ]},
   {team:"UZB",flag:"🇺🇿",name:"Ouzbékistan",cards:[
-    {id:"UZB2",label:"UZB 2",player:"Umar Yusupov"},
-    {id:"UZB3",label:"UZB 3",player:"Farshsh Savfiev"},
-    {id:"UZB4",label:"UZB 4",player:"Sherzod Nasrullaev"},
-    {id:"UZB11",label:"UZB 11",player:"Otabek Shukurov"},
-    {id:"UZB13",label:"UZB 13",player:"Carte pays"},
-    {id:"UZB19",label:"UZB 19",player:"Igor Sergeev"},
+    {id:"UZB2",label:"UZB 2",player:"Umar Yusupov"},{id:"UZB3",label:"UZB 3",player:"Farshsh Savfiev"},
+    {id:"UZB4",label:"UZB 4",player:"Sherzod Nasrullaev"},{id:"UZB11",label:"UZB 11",player:"Otabek Shukurov"},
+    {id:"UZB13",label:"UZB 13",player:"Carte pays"},{id:"UZB19",label:"UZB 19",player:"Igor Sergeev"},
   ]},
   {team:"COL",flag:"🇨🇴",name:"Colombie",cards:[
-    {id:"COL8",label:"COL 8",player:"Jhon Lucumi"},
-    {id:"COL9",label:"COL 9",player:"Santiago Arias"},
+    {id:"COL8",label:"COL 8",player:"Jhon Lucumi"},{id:"COL9",label:"COL 9",player:"Santiago Arias"},
     {id:"COL14",label:"COL 14",player:"James Rodriguez"},
   ]},
   {team:"ENG",flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",name:"Angleterre",cards:[
-    {id:"ENG5",label:"ENG 5",player:"Ezri Konsa"},
-    {id:"ENG9",label:"ENG 9",player:"Jordan Henderson"},
-    {id:"ENG11",label:"ENG 11",player:"Jude Bellingham"},
-    {id:"ENG13",label:"ENG 13",player:"Carte pays"},
+    {id:"ENG5",label:"ENG 5",player:"Ezri Konsa"},{id:"ENG9",label:"ENG 9",player:"Jordan Henderson"},
+    {id:"ENG11",label:"ENG 11",player:"Jude Bellingham"},{id:"ENG13",label:"ENG 13",player:"Carte pays"},
     {id:"ENG20",label:"ENG 20",player:"Ollie Watkins"},
   ]},
   {team:"CRO",flag:"🇭🇷",name:"Croatie",cards:[
-    {id:"CRO3",label:"CRO 3",player:"Duje Caleta-Car"},
-    {id:"CRO4",label:"CRO 4",player:"Josko Gvardiol"},
-    {id:"CRO6",label:"CRO 6",player:"Luka Vuskovic"},
-    {id:"CRO10",label:"CRO 10",player:"Mateo Kovacic"},
-    {id:"CRO11",label:"CRO 11",player:"Maistini Batunina"},
-    {id:"CRO13",label:"CRO 13",player:"Carte pays"},
+    {id:"CRO3",label:"CRO 3",player:"Duje Caleta-Car"},{id:"CRO4",label:"CRO 4",player:"Josko Gvardiol"},
+    {id:"CRO6",label:"CRO 6",player:"Luka Vuskovic"},{id:"CRO10",label:"CRO 10",player:"Mateo Kovacic"},
+    {id:"CRO11",label:"CRO 11",player:"Maistini Batunina"},{id:"CRO13",label:"CRO 13",player:"Carte pays"},
     {id:"CRO15",label:"CRO 15",player:"Petar Sucic"},
   ]},
   {team:"GHA",flag:"🇬🇭",name:"Ghana",cards:[
-    {id:"GHA5",label:"GHA 5",player:"Seidu Alidu"},
-    {id:"GHA16",label:"GHA 16",player:"Jordan Ayew"},
-    {id:"GHA18",label:"GHA 18",player:"Joseph Paintsil"},
-    {id:"GHA19",label:"GHA 19",player:"Osman Bukari"},
+    {id:"GHA5",label:"GHA 5",player:"Seidu Alidu"},{id:"GHA16",label:"GHA 16",player:"Jordan Ayew"},
+    {id:"GHA18",label:"GHA 18",player:"Joseph Paintsil"},{id:"GHA19",label:"GHA 19",player:"Osman Bukari"},
   ]},
   {team:"PAN",flag:"🇵🇦",name:"Panama",cards:[
-    {id:"PAN8",label:"PAN 8",player:"Jose Cordoba"},
-    {id:"PAN14",label:"PAN 14",player:"Edgar Barcenas"},
-    {id:"PAN18",label:"PAN 18",player:"Cecilio Waterman"},
-    {id:"PAN19",label:"PAN 19",player:"Jose Luis Rodriguez"},
+    {id:"PAN8",label:"PAN 8",player:"Jose Cordoba"},{id:"PAN14",label:"PAN 14",player:"Edgar Barcenas"},
+    {id:"PAN18",label:"PAN 18",player:"Cecilio Waterman"},{id:"PAN19",label:"PAN 19",player:"Jose Luis Rodriguez"},
     {id:"PAN20",label:"PAN 20",player:"Alberto Quintero"},
   ]},
 ];
 
-const ALL_IDS = TEAMS.flatMap(t => t.cards.map(c => c.id));
-const TOTAL = ALL_IDS.length;
-const LS_KEY = "panini_wc2026";
-
+const TOTAL = TEAMS.reduce((s,t) => s + t.cards.length, 0);
 let found = {};
-let openTeam = null;
+let saveTimer = null;
 
-// Load from localStorage
-try {
-  const saved = localStorage.getItem(LS_KEY);
-  if (saved) found = JSON.parse(saved);
-} catch(e) {}
-
-// Save to localStorage
-function save() {
-  try { localStorage.setItem(LS_KEY, JSON.stringify(found)); } catch(e) {}
+// --- SUPABASE API ---
+async function sbFetch(method, path, body) {
+  const res = await fetch(SUPABASE_URL + path, {
+    method,
+    headers: {
+      "apikey": SUPABASE_KEY,
+      "Authorization": "Bearer " + SUPABASE_KEY,
+      "Content-Type": "application/json",
+      "Prefer": method === "POST" ? "resolution=merge-duplicates,return=minimal" : ""
+    },
+    body: body ? JSON.stringify(body) : undefined
+  });
+  if (!res.ok) throw new Error(await res.text());
+  const text = await res.text();
+  return text ? JSON.parse(text) : null;
 }
 
-// Encode/decode for export
-function encode() {
-  const bits = ALL_IDS.map(id => found[id] ? "1" : "0").join("");
-  const bytes = [];
-  for (let i = 0; i < bits.length; i += 8)
-    bytes.push(parseInt(bits.slice(i, i+8).padEnd(8,"0"), 2));
-  return btoa(String.fromCharCode(...bytes));
-}
-
-function decode(str) {
+async function loadFromDB() {
   try {
-    const bytes = atob(str.trim()).split("").map(c => c.charCodeAt(0));
-    const bits = bytes.map(b => b.toString(2).padStart(8,"0")).join("");
-    const result = {};
-    ALL_IDS.forEach((id,i) => { if (bits[i]==="1") result[id]=true; });
-    return result;
-  } catch { return null; }
+    const rows = await sbFetch("GET", `/rest/v1/panini_progress?user_id=eq.${USER_ID}&select=found_cards`);
+    if (rows && rows.length > 0) {
+      found = rows[0].found_cards || {};
+    }
+    setSyncStatus("✅ Synchronisé", "#4ade80");
+  } catch(e) {
+    setSyncStatus("⚠️ Hors ligne — progression locale", "#f87171");
+    // fallback localStorage
+    try { const s = localStorage.getItem("panini_wc2026"); if(s) found = JSON.parse(s); } catch(_) {}
+  }
 }
 
-// Update stats
+async function saveToDB() {
+  // Always save to localStorage as backup
+  try { localStorage.setItem("panini_wc2026", JSON.stringify(found)); } catch(_) {}
+  setSyncStatus("⏳ Sauvegarde...", "#e8b923");
+  try {
+    await sbFetch("POST", "/rest/v1/panini_progress", {
+      user_id: USER_ID,
+      found_cards: found,
+      updated_at: new Date().toISOString()
+    });
+    setSyncStatus("✅ Synchronisé", "#4ade80");
+  } catch(e) {
+    setSyncStatus("⚠️ Erreur sync — sauvegardé localement", "#f87171");
+  }
+}
+
+function setSyncStatus(msg, color) {
+  const el = document.getElementById("sync-status");
+  if (el) { el.textContent = msg; el.style.color = color; }
+}
+
+function scheduleSync() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveToDB, 800);
+}
+
+// --- UI ---
 function updateStats() {
   const n = Object.keys(found).length;
   const pct = Math.round(n / TOTAL * 100);
@@ -604,42 +394,30 @@ function updateStats() {
   document.getElementById("prog-fill").style.width = pct + "%";
 }
 
-// Toast
 let toastTimer;
 function showToast(msg, color="#22c55e") {
   const t = document.getElementById("toast");
-  t.textContent = msg;
-  t.style.background = color;
+  t.textContent = msg; t.style.background = color;
   t.classList.add("show");
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => t.classList.remove("show"), 2000);
 }
 
-// Toggle card
 function toggle(id) {
   if (found[id]) delete found[id]; else found[id] = true;
-  save();
   updateStats();
-  // Update card UI
+  scheduleSync();
   const row = document.querySelector(`[data-id="${id}"]`);
   if (!row) return;
   const btn = row.querySelector(".check-btn");
   const pid = row.querySelector(".card-id");
   const pname = row.querySelector(".card-player");
-  if (found[id]) {
-    row.classList.add("found");
-    btn.classList.add("found");
-    btn.textContent = "✓";
-    pid.classList.add("found");
-    pname.classList.add("found");
-  } else {
-    row.classList.remove("found");
-    btn.classList.remove("found");
-    btn.textContent = "○";
-    pid.classList.remove("found");
-    pname.classList.remove("found");
-  }
-  // Update team header
+  const isFound = !!found[id];
+  row.classList.toggle("found", isFound);
+  btn.classList.toggle("found", isFound);
+  btn.textContent = isFound ? "✓" : "○";
+  pid.classList.toggle("found", isFound);
+  pname.classList.toggle("found", isFound);
   updateTeamHeader(row.closest(".cards-list").dataset.team);
 }
 
@@ -652,94 +430,45 @@ function updateTeamHeader(teamId) {
   if (!hdr) return;
   hdr.querySelector(".team-sub").textContent = `${n}/${t.cards.length}`;
   const badge = hdr.querySelector(".badge");
-  const remaining = t.cards.length - n;
-  badge.textContent = remaining;
-  if (done) { badge.classList.add("zero"); hdr.classList.add("done"); hdr.querySelector(".team-name").classList.add("done"); hdr.querySelector(".team-name").textContent = t.name + " ✓"; }
-  else { badge.classList.remove("zero"); hdr.classList.remove("done"); hdr.querySelector(".team-name").classList.remove("done"); hdr.querySelector(".team-name").textContent = t.name; }
+  badge.textContent = t.cards.length - n;
+  badge.classList.toggle("zero", done);
+  hdr.classList.toggle("done", done);
+  const nameEl = hdr.querySelector(".team-name");
+  nameEl.classList.toggle("done", done);
+  nameEl.textContent = t.name + (done ? " ✓" : "");
 }
 
-// Toggle team open
 function toggleTeam(teamId) {
   const list = document.querySelector(`.cards-list[data-team="${teamId}"]`);
   const hdr = document.querySelector(`.team-header[data-team="${teamId}"]`);
   if (!list) return;
-  if (list.classList.contains("open")) {
-    list.classList.remove("open");
-    hdr.classList.remove("open");
-    openTeam = null;
-  } else {
-    // close others
-    document.querySelectorAll(".cards-list.open").forEach(el => el.classList.remove("open"));
-    document.querySelectorAll(".team-header.open").forEach(el => el.classList.remove("open"));
-    list.classList.add("open");
-    hdr.classList.add("open");
-    openTeam = teamId;
-  }
+  const isOpen = list.classList.contains("open");
+  document.querySelectorAll(".cards-list.open").forEach(el => el.classList.remove("open"));
+  document.querySelectorAll(".team-header.open").forEach(el => el.classList.remove("open"));
+  if (!isOpen) { list.classList.add("open"); hdr.classList.add("open"); }
 }
 
-// Filter
 function filterList(q) {
   const lower = q.toLowerCase();
   TEAMS.forEach(t => {
     const wrap = document.querySelector(`.team-wrap[data-team="${t.team}"]`);
     if (!wrap) return;
-    let anyVisible = false;
+    let any = false;
     t.cards.forEach(c => {
       const row = wrap.querySelector(`[data-id="${c.id}"]`);
       if (!row) return;
       const match = !q || c.player.toLowerCase().includes(lower) || c.label.toLowerCase().includes(lower) || t.name.toLowerCase().includes(lower);
       row.style.display = match ? "" : "none";
-      if (match) anyVisible = true;
+      if (match) any = true;
     });
-    wrap.style.display = anyVisible ? "" : "none";
-    // Auto-open if searching
+    wrap.style.display = any ? "" : "none";
     const list = wrap.querySelector(".cards-list");
     const hdr = wrap.querySelector(".team-header");
-    if (q && anyVisible) { list.classList.add("open"); hdr.classList.add("open"); }
+    if (q && any) { list.classList.add("open"); hdr.classList.add("open"); }
     else if (!q) { list.classList.remove("open"); hdr.classList.remove("open"); }
   });
 }
 
-// Export
-function exportCode() {
-  document.getElementById("export-code").textContent = encode();
-  document.getElementById("modal-export").classList.add("open");
-}
-function copyCode() {
-  const code = document.getElementById("export-code").textContent;
-  if (navigator.clipboard) {
-    navigator.clipboard.writeText(code).then(() => { showToast("✓ Copié !"); closeModal("modal-export"); });
-  } else {
-    const el = document.createElement("textarea");
-    el.value = code; el.style.position="fixed"; el.style.opacity="0";
-    document.body.appendChild(el); el.focus(); el.select();
-    document.execCommand("copy"); document.body.removeChild(el);
-    showToast("✓ Copié !"); closeModal("modal-export");
-  }
-}
-
-// Import
-function openLoad() { document.getElementById("modal-load").classList.add("open"); }
-function importCode() {
-  const val = document.getElementById("load-input").value;
-  const result = decode(val);
-  if (!result) { document.getElementById("load-input").classList.add("error"); document.getElementById("load-error").style.display="block"; return; }
-  found = result; save();
-  closeModal("modal-load");
-  document.getElementById("load-input").value = "";
-  renderAll();
-  showToast("✓ Progression chargée !");
-}
-
-function closeModal(id) {
-  document.getElementById(id).classList.remove("open");
-  document.getElementById("load-input").classList.remove("error");
-  document.getElementById("load-error").style.display = "none";
-}
-document.getElementById("modal-export").addEventListener("click", () => closeModal("modal-export"));
-document.getElementById("modal-load").addEventListener("click", () => closeModal("modal-load"));
-
-// Render
 function renderAll() {
   const list = document.getElementById("list");
   list.innerHTML = "";
@@ -747,9 +476,7 @@ function renderAll() {
     const teamFound = t.cards.filter(c => found[c.id]).length;
     const done = teamFound === t.cards.length;
     const wrap = document.createElement("div");
-    wrap.className = "team-wrap";
-    wrap.dataset.team = t.team;
-
+    wrap.className = "team-wrap"; wrap.dataset.team = t.team;
     wrap.innerHTML = `
       <button class="team-header${done?" done":""}" data-team="${t.team}" onclick="toggleTeam('${t.team}')">
         <div class="team-left">
@@ -774,14 +501,19 @@ function renderAll() {
             <button class="check-btn${found[c.id]?" found":""}" onclick="toggle('${c.id}')">${found[c.id]?"✓":"○"}</button>
           </div>
         `).join("")}
-      </div>
-    `;
+      </div>`;
     list.appendChild(wrap);
   });
   updateStats();
 }
 
-renderAll();
+// --- INIT ---
+(async () => {
+  await loadFromDB();
+  renderAll();
+  document.getElementById("loading").style.display = "none";
+  document.getElementById("header").style.display = "block";
+})();
 </script>
 </body>
 </html>
