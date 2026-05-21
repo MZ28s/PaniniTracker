@@ -59,6 +59,9 @@
   @keyframes spin { to { transform: rotate(360deg); } }
   #export-btn { width: 100%; background: rgba(232,185,35,0.12); border: 1px solid rgba(232,185,35,0.4); color: var(--gold); font-size: 13px; font-weight: 600; padding: 9px; border-radius: 9px; margin-top: 8px; cursor: pointer; transition: background 0.15s; }
   #export-btn:active { background: rgba(232,185,35,0.25); transform: scale(0.99); }
+  body.hide-found .card-row.found { display: none; }
+  .hide-found-toggle { display: flex; align-items: center; gap: 7px; margin-top: 8px; font-size: 12px; color: var(--muted); cursor: pointer; user-select: none; }
+  .hide-found-toggle input { accent-color: var(--gold); cursor: pointer; width: 16px; height: 16px; }
   #print-header, #print-list { display: none; }
   @media print {
     @page { size: A4 portrait; margin: 1cm; }
@@ -100,6 +103,10 @@
     <input id="search" type="search" placeholder="Rechercher un joueur, pays..." oninput="filterList(this.value)">
   </div>
   <button id="export-btn" onclick="exportPDF()">📄 PDF des cartes manquantes</button>
+  <label class="hide-found-toggle">
+    <input type="checkbox" id="hide-found-cb" checked onchange="document.body.classList.toggle('hide-found', this.checked)">
+    <span>Masquer les cartes trouvées</span>
+  </label>
 </div>
 
 <div id="print-header">
@@ -122,6 +129,11 @@ const TEAMS = [
     {id:"FWC7",label:"FWC 7",player:"Mexico Host Emblem"},{id:"FWC8",label:"FWC 8",player:"USA Host Emblem"},
     {id:"FWC10",label:"FWC 10",player:"Histoire WC 1950"},{id:"FWC18",label:"FWC 18",player:"Histoire WC 2014"},
   ]},
+  {team:"CC",flag:"🥤",name:"Coca-Cola",cards:[
+    {id:"CC1",label:"CC 1",player:"Logo Coca-Cola"},{id:"CC3",label:"CC 3",player:"Coca-Cola"},
+    {id:"CC7",label:"CC 7",player:"Coca-Cola"},{id:"CC9",label:"CC 9",player:"Coca-Cola"},
+    {id:"CC11",label:"CC 11",player:"Coca-Cola"},{id:"CC12",label:"CC 12",player:"Coca-Cola"},
+  ]},
   {team:"MEX",flag:"🇲🇽",name:"Mexique",cards:[
     {id:"MEX10",label:"MEX 10",player:"Edson Alvarez"},{id:"MEX12",label:"MEX 12",player:"Marbel Ruiz"},
     {id:"MEX14",label:"MEX 14",player:"Erick Sanchez"},{id:"MEX15",label:"MEX 15",player:"Hirving Lozano"},
@@ -133,7 +145,7 @@ const TEAMS = [
   ]},
   {team:"KOR",flag:"🇰🇷",name:"Corée du Sud",cards:[{id:"KOR17",label:"KOR 17",player:"Gisung Cho"}]},
   {team:"CZE",flag:"🇨🇿",name:"Tchéquie",cards:[
-    {id:"CZE10",label:"CZE 10",player:"Lukas Provod"},{id:"CZE15",label:"CZE 15",player:"Matej Vvdra"},
+    {id:"CZE10",label:"CZE 10",player:"Lukas Provod"},{id:"CZE13",label:"CZE 13",player:"Carte pays"},{id:"CZE15",label:"CZE 15",player:"Matej Vvdra"},
     {id:"CZE19",label:"CZE 19",player:"Adam Hlozek"},
   ]},
   {team:"CAN",flag:"🇨🇦",name:"Canada",cards:[
@@ -141,7 +153,7 @@ const TEAMS = [
     {id:"CAN16",label:"CAN 16",player:"Niko Sigua"},{id:"CAN19",label:"CAN 19",player:"Cyle Larin"},
   ]},
   {team:"BIH",flag:"🇧🇦",name:"Bosnie-Herzégovine",cards:[
-    {id:"BIH1",label:"BIH 1",player:"Gardien"},{id:"BIH4",label:"BIH 4",player:"Sead Kolasinac"},
+    {id:"BIH1",label:"BIH 1",player:"Blason"},{id:"BIH4",label:"BIH 4",player:"Sead Kolasinac"},
     {id:"BIH6",label:"BIH 6",player:"Nihad Mujakic"},{id:"BIH10",label:"BIH 10",player:"Armin Gigovic"},
     {id:"BIH14",label:"BIH 14",player:"Dzenis Burnic"},{id:"BIH15",label:"BIH 15",player:"Esmir Bajraktarevic"},
   ]},
@@ -165,7 +177,7 @@ const TEAMS = [
     {id:"MAR18",label:"MAR 18",player:"Soufiane Rahimi"},
   ]},
   {team:"HAI",flag:"🇭🇹",name:"Haïti",cards:[
-    {id:"HAI1",label:"HAI 1",player:"Gardien"},{id:"HAI5",label:"HAI 5",player:"Jean-Kevin Duverne"},
+    {id:"HAI1",label:"HAI 1",player:"Blason"},{id:"HAI5",label:"HAI 5",player:"Jean-Kevin Duverne"},
     {id:"HAI7",label:"HAI 7",player:"Duke Lacroix"},{id:"HAI9",label:"HAI 9",player:"Hannes Delcroix"},
     {id:"HAI11",label:"HAI 11",player:"Danley Jean Jacques"},{id:"HAI12",label:"HAI 12",player:"Jean-Michel Bellegarde"},
     {id:"HAI14",label:"HAI 14",player:"Christopher Attys"},{id:"HAI17",label:"HAI 17",player:"Ruben Providence"},
@@ -184,7 +196,7 @@ const TEAMS = [
     {id:"PAR14",label:"PAR 14",player:"Matias Galarza Fonda"},
   ]},
   {team:"AUS",flag:"🇦🇺",name:"Australie",cards:[
-    {id:"AUS1",label:"AUS 1",player:"Gardien"},{id:"AUS8",label:"AUS 8",player:"Cameron Burgess"},
+    {id:"AUS1",label:"AUS 1",player:"Blason"},{id:"AUS8",label:"AUS 8",player:"Cameron Burgess"},
     {id:"AUS12",label:"AUS 12",player:"Riley McGee"},{id:"AUS13",label:"AUS 13",player:"Carte pays"},
     {id:"AUS19",label:"AUS 19",player:"Nestory Irankunda"},
   ]},
@@ -194,7 +206,7 @@ const TEAMS = [
     {id:"TUR16",label:"TUR 16",player:"Yunus Akgun"},{id:"TUR19",label:"TUR 19",player:"Kerem Arturoğlu"},
   ]},
   {team:"GER",flag:"🇩🇪",name:"Allemagne",cards:[
-    {id:"GER1",label:"GER 1",player:"Gardien"},{id:"GER2",label:"GER 2",player:"Marc-Andre Ter Stegen"},
+    {id:"GER1",label:"GER 1",player:"Blason"},{id:"GER2",label:"GER 2",player:"Marc-Andre Ter Stegen"},
     {id:"GER3",label:"GER 3",player:"Jonathan Tah"},{id:"GER5",label:"GER 5",player:"Nico Schlotterbeck"},
     {id:"GER7",label:"GER 7",player:"Waldemar Anton"},{id:"GER8",label:"GER 8",player:"Role Baku"},
     {id:"GER12",label:"GER 12",player:"Felix Nmecha"},{id:"GER17",label:"GER 17",player:"Kai Havertz"},
@@ -213,7 +225,7 @@ const TEAMS = [
     {id:"ECU19",label:"ECU 19",player:"Kevin Rodriguez"},{id:"ECU20",label:"ECU 20",player:"Enner Valencia"},
   ]},
   {team:"NED",flag:"🇳🇱",name:"Pays-Bas",cards:[
-    {id:"NED1",label:"NED 1",player:"Gardien"},{id:"NED2",label:"NED 2",player:"Bart Verbruggen"},
+    {id:"NED1",label:"NED 1",player:"Blason"},{id:"NED2",label:"NED 2",player:"Bart Verbruggen"},
     {id:"NED5",label:"NED 5",player:"Jurrien Timber"},{id:"NED18",label:"NED 18",player:"Donyell Malen"},
   ]},
   {team:"JPN",flag:"🇯🇵",name:"Japon",cards:[
@@ -235,7 +247,7 @@ const TEAMS = [
     {id:"BEL17",label:"BEL 17",player:"Charles De Ketelaere"},{id:"BEL18",label:"BEL 18",player:"Leandro Trossard"},
   ]},
   {team:"EGY",flag:"🇪🇬",name:"Égypte",cards:[
-    {id:"EGY1",label:"EGY 1",player:"Gardien"},{id:"EGY3",label:"EGY 3",player:"Mohamed Hany"},
+    {id:"EGY1",label:"EGY 1",player:"Blason"},{id:"EGY3",label:"EGY 3",player:"Mohamed Hany"},
     {id:"EGY4",label:"EGY 4",player:"Mohamed Hamdy"},{id:"EGY9",label:"EGY 9",player:"Ahmed Fatouh"},
     {id:"EGY12",label:"EGY 12",player:"Hamdy Fathy"},{id:"EGY14",label:"EGY 14",player:"Mohanad Lasheen"},
     {id:"EGY17",label:"EGY 17",player:"Mohamed Salah"},{id:"EGY18",label:"EGY 18",player:"Mostafa Mohamed"},
@@ -246,7 +258,7 @@ const TEAMS = [
     {id:"IRN17",label:"IRN 17",player:"Sardar Azmoun"},{id:"IRN18",label:"IRN 18",player:"Mehdi Taremi"},
   ]},
   {team:"NZL",flag:"🇳🇿",name:"Nouvelle-Zélande",cards:[
-    {id:"NZL1",label:"NZL 1",player:"Gardien"},{id:"NZL2",label:"NZL 2",player:"Max Crocombe"},
+    {id:"NZL1",label:"NZL 1",player:"Blason"},{id:"NZL2",label:"NZL 2",player:"Max Crocombe"},
     {id:"NZL3",label:"NZL 3",player:"Alex Paulsen"},{id:"NZL4",label:"NZL 4",player:"Michael Boxall"},
     {id:"NZL13",label:"NZL 13",player:"Carte pays"},{id:"NZL15",label:"NZL 15",player:"Marko Stamenic"},
     {id:"NZL17",label:"NZL 17",player:"Chris Wood"},{id:"NZL20",label:"NZL 20",player:"Kosta Barbarouses"},
@@ -282,7 +294,7 @@ const TEAMS = [
     {id:"SEN20",label:"SEN 20",player:"Krepin Diatta"},
   ]},
   {team:"IRQ",flag:"🇮🇶",name:"Irak",cards:[
-    {id:"IRQ7",label:"IRQ 7",player:"Zao Tahseen"},{id:"IRQ10",label:"IRQ 10",player:"Amir Al-Ammari"},
+    {id:"IRQ4",label:"IRQ 4",player:"Joueur"},{id:"IRQ7",label:"IRQ 7",player:"Zao Tahseen"},{id:"IRQ10",label:"IRQ 10",player:"Amir Al-Ammari"},
     {id:"IRQ11",label:"IRQ 11",player:"Ibrahim Bayesh"},{id:"IRQ16",label:"IRQ 16",player:"Mario Farji"},
     {id:"IRQ20",label:"IRQ 20",player:"Mohanad Ali"},
   ]},
@@ -290,7 +302,7 @@ const TEAMS = [
     {id:"NOR5",label:"NOR 5",player:"Kristoffer Vassbakk Ajer"},{id:"NOR16",label:"NOR 16",player:"Alexander Sorloth"},
   ]},
   {team:"ARG",flag:"🇦🇷",name:"Argentine",cards:[
-    {id:"ARG7",label:"ARG 7",player:"Leonardo Balerdi"},{id:"ARG17",label:"ARG 17",player:"Lionel Messi"},
+    {id:"ARG4",label:"ARG 4",player:"Joueur"},{id:"ARG7",label:"ARG 7",player:"Leonardo Balerdi"},{id:"ARG17",label:"ARG 17",player:"Lionel Messi"},
   ]},
   {team:"ALG",flag:"🇩🇿",name:"Algérie",cards:[
     {id:"ALG6",label:"ALG 6",player:"Mohamed Amine Tougai"},{id:"ALG14",label:"ALG 14",player:"Fares Chaabi"},
@@ -312,7 +324,7 @@ const TEAMS = [
     {id:"POR20",label:"POR 20",player:"Rafael Leao"},
   ]},
   {team:"COD",flag:"🇨🇩",name:"Congo DR",cards:[
-    {id:"COD1",label:"COD 1",player:"Gardien"},{id:"COD2",label:"COD 2",player:"Lionel Mpasi"},
+    {id:"COD1",label:"COD 1",player:"Blason"},{id:"COD2",label:"COD 2",player:"Lionel Mpasi"},
     {id:"COD4",label:"COD 4",player:"Axel Tuanzebe"},{id:"COD9",label:"COD 9",player:"Ngaluwel Mukau"},
     {id:"COD12",label:"COD 12",player:"Nomi Sadiki"},{id:"COD15",label:"COD 15",player:"Messhack Elia"},
     {id:"COD17",label:"COD 17",player:"Brian Gipenga"},
@@ -565,6 +577,7 @@ function renderAll() {
 
 // --- INIT ---
 (async () => {
+  document.body.classList.add("hide-found");
   await loadFromDB();
   renderAll();
   document.getElementById("loading").style.display = "none";
